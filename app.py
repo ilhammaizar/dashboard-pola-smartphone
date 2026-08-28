@@ -66,31 +66,54 @@ except Exception as e:
 df.columns = df.columns.astype(str).str.strip()
 
 # Pemetaan fleksibel untuk mencocokkan variasi penamaan kolom
+# Pemetaan fleksibel dan super lengkap untuk mencocokkan variasi penamaan kolom
 col_mapping = {}
 for col in df.columns:
-  c_clean = col.lower().replace(" ", "").replace("_", "")
-  if "usia" in c_clean or "age" in c_clean:
-    col_mapping[col] = "Usia Saat Ini"
-  elif "dailyscreen" in c_clean or "screentime" in c_clean:
-    col_mapping[col] = "Daily_Screen_Time"
-  elif "social" in c_clean or "medsos" in c_clean:
-    col_mapping[col] = "Social_Media"
-  elif "game" in c_clean or "gaming" in c_clean:
-    col_mapping[col] = "Gaming"
-  elif "work" in c_clean or "study" in c_clean or "tugas" in c_clean:
-    col_mapping[col] = "Work_Study"
-  elif "sleep" in c_clean or "tidur" in c_clean:
-    col_mapping[col] = "Sleep"
-  elif "weekend" in c_clean or "libur" in c_clean:
-    col_mapping[col] = "Weekend_Screen_Time"
-  elif "notif" in c_clean:
-    col_mapping[col] = "Notifications"
-  elif "open" in c_clean or "buka" in c_clean:
-    col_mapping[col] = "App_Opens"
-  elif "stress" in c_clean or "stres" in c_clean:
-    col_mapping[col] = "Strees_level"
-  elif "addict" in c_clean or "adiksi" in c_clean:
-    col_mapping[col] = "Addiction_label"
+  c_clean = col.lower().replace(' ', '').replace('_', '').replace('-', '')
+  if 'usia' in c_clean or 'age' in c_clean or 'umur' in c_clean:
+    col_mapping[col] = 'Usia Saat Ini'
+  elif (
+      'weekend' in c_clean
+      or 'akhirpekan' in c_clean
+      or 'sabtuminggu' in c_clean
+      or 'libur' in c_clean
+  ):
+    col_mapping[col] = 'Weekend_Screen_Time'
+  elif (
+      'dailyscreen' in c_clean
+      or 'screentime' in c_clean
+      or 'harian' in c_clean
+      or 'durasi' in c_clean
+  ):
+    col_mapping[col] = 'Daily_Screen_Time'
+  elif (
+      'social' in c_clean
+      or 'medsos' in c_clean
+      or 'sosial' in c_clean
+      or 'instagram' in c_clean
+      or 'tiktok' in c_clean
+  ):
+    col_mapping[col] = 'Social_Media'
+  elif 'game' in c_clean or 'gaming' in c_clean or 'bermain' in c_clean:
+    col_mapping[col] = 'Gaming'
+  elif (
+      'work' in c_clean
+      or 'study' in c_clean
+      or 'tugas' in c_clean
+      or 'kerja' in c_clean
+      or 'belajar' in c_clean
+  ):
+    col_mapping[col] = 'Work_Study'
+  elif 'sleep' in c_clean or 'tidur' in c_clean:
+    col_mapping[col] = 'Sleep'
+  elif 'notif' in c_clean or 'pemberitahuan' in c_clean:
+    col_mapping[col] = 'Notifications'
+  elif 'open' in c_clean or 'buka' in c_clean or 'akses' in c_clean:
+    col_mapping[col] = 'App_Opens'
+  elif 'stress' in c_clean or 'stres' in c_clean:
+    col_mapping[col] = 'Strees_level'
+  elif 'addict' in c_clean or 'adiksi' in c_clean or 'kecanduan' in c_clean:
+    col_mapping[col] = 'Addiction_label'
 
 df = df.rename(columns=col_mapping)
 
