@@ -227,7 +227,7 @@ if menu == "📊 1. Ringkasan Data & Statistik":
   st.subheader("Data Primer Responden (10 Baris Teratas)")
   st.dataframe(df.head(10), use_container_width=True)
 
-  st.subheader("Tabel 4.1 Statistik Deskriptif 9 Fitur Kuantitatif")
+  st.subheader("Statistik Deskriptif 9 Fitur Kuantitatif")
   desc = df[num_features].describe().T[["min", "max", "mean", "std"]]
   desc.columns = [
       "Nilai Min",
@@ -295,7 +295,7 @@ elif menu == "📈 2. Evaluasi K Optimal (Elbow & Silhouette)":
         label="K=4 Optimal (Elbow Point)",
     )
     plt.title(
-        "Gambar 4.2 Grafik Kurva Elbow Method & Silhouette Score",
+        "Grafik Kurva Elbow Method & Silhouette Score",
         fontweight="bold",
         fontsize=11,
     )
@@ -303,7 +303,7 @@ elif menu == "📈 2. Evaluasi K Optimal (Elbow & Silhouette)":
     st.pyplot(fig_eval)
 
   with col_tbl:
-    st.write("**Tabel 4.3 Hasil Evaluasi Nilai K:**")
+    st.write("**Hasil Evaluasi Nilai K:**")
     df_eval_tbl = pd.DataFrame({
         "Jumlah Klaster (K)": [f"K = {k}" for k in k_range],
         "Inersia WCSS": [round(w, 2) for w in wcss_list],
@@ -325,7 +325,7 @@ elif menu == "🗺️ 3. Visualisasi Spasial PCA & Klaster":
   col_pca, col_km = st.columns(2)
 
   with col_pca:
-    st.subheader("Gambar 4.1 Proyeksi PCA 2D")
+    st.subheader("Proyeksi PCA 2D")
     fig_pca, ax_p = plt.subplots(figsize=(6, 5), dpi=300)
     sns.scatterplot(
         data=df_pca,
@@ -358,7 +358,7 @@ elif menu == "🗺️ 3. Visualisasi Spasial PCA & Klaster":
     st.pyplot(fig_pca)
 
   with col_km:
-    st.subheader("Gambar 4.3 Klaster K-Means 2D")
+    st.subheader("Klaster K-Means 2D")
     fig_km, ax_k = plt.subplots(figsize=(6, 5), dpi=300)
     palette = ["#e74c3c", "#3498db", "#2ecc71", "#9b59b6"]
     persona_order = [
@@ -409,14 +409,14 @@ elif menu == "🗺️ 3. Visualisasi Spasial PCA & Klaster":
 elif menu == "📋 4. Profiling & Tabulasi Silang":
   st.header("📋 Karakteristik Persona & Tabulasi Silang Kesehatan")
 
-  st.subheader("Tabel 4.4 Rata-Rata Karakteristik 9 Fitur Riil per Klaster")
+  st.subheader("Rata-Rata Karakteristik 9 Fitur Riil per Klaster")
   prof = df.groupby("Persona")[num_features].mean().T
   st.dataframe(prof.round(2), use_container_width=True)
 
   st.markdown("---")
   col1, col2 = st.columns(2)
   with col1:
-    st.subheader("Tabel 4.5 Klaster vs Tingkat Stres (%)")
+    st.subheader("Klaster vs Tingkat Stres (%)")
     if "Strees_level" in df.columns:
       ct_stress = (
           pd.crosstab(df["Persona"], df["Strees_level"], normalize="index")
@@ -426,7 +426,7 @@ elif menu == "📋 4. Profiling & Tabulasi Silang":
     else:
       st.info("Kolom 'Strees_level' tidak ditemukan di dataset.")
   with col2:
-    st.subheader("Tabel 4.6 Klaster vs Status Adiksi (%)")
+    st.subheader("Klaster vs Status Adiksi (%)")
     if "Addiction_label" in df.columns:
       ct_addict = (
           pd.crosstab(df["Persona"], df["Addiction_label"], normalize="index")
